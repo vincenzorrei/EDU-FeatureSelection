@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+from imblearn.over_sampling import SMOTE
 from sklearn.preprocessing import OneHotEncoder
 
 
@@ -47,3 +48,12 @@ def standard_OHE(df):
     # Drop the original categorical columns (redundant information)
     df_encoded = df_encoded.drop(categorical_columns, axis=1)
     return df_encoded
+
+
+def balance_with_SMOTE(x_train):
+    """
+    Balances the dataset using the Synthetic Minority Over-sampling Technique (SMOTE).
+    """
+    smote = SMOTE()
+    x_train, y_train = smote.fit_resample(x_train, y_train)
+    return x_train, y_train
